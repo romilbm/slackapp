@@ -1,0 +1,53 @@
+package Model;
+
+import Enums.Symbol;
+import Exceptions.InvalidMoveException;
+import Interfaces.MoveMethod;
+
+public class Player {
+    private String name;
+    private String id;
+    private MoveMethod moveStrategy;
+    private Symbol symbol;
+
+    public Player(String name, String id, MoveMethod moveStrategy, Symbol symbol) {
+        this.name = name;
+        this.id = id;
+        this.moveStrategy = moveStrategy;
+        this.symbol = symbol;
+    }
+
+    public MoveMethod getMoveStrategy() {
+        return moveStrategy;
+    }
+
+    public Symbol getSymbol() {
+        return symbol;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String move(int[][] board, int position) throws InvalidMoveException {
+        return moveStrategy.move(board, symbol, position);
+    }
+
+    public String toString() {
+        return name + " " + (symbol.equals(Symbol.X) ? "X" : "0");
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public boolean isValid() {
+        if (name == null || name.isEmpty()
+         || id == null || id.isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
+}
