@@ -21,7 +21,7 @@
         <spring.boot.version>1.5.2.RELEASE</spring.boot.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+        <org.springframework.version>4.0.5.RELEASE</org.springframework.version>
     </properties>
 
     <dependencies>

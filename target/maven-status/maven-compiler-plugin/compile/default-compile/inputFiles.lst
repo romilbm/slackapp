@@ -25,6 +25,7 @@
 /Users/romil/MyApps/slackapp/src/main/java/Interfaces/DataAccessor.java
 /Users/romil/MyApps/slackapp/src/main/java/Model/Player.java
 /Users/romil/MyApps/slackapp/src/main/java/Model/TicTacToe.java
+/Users/romil/MyApps/slackapp/src/main/java/Controller/Application.java
 /Users/romil/MyApps/slackapp/src/main/java/Exceptions/NoGameInProgressException.java
 /Users/romil/MyApps/slackapp/src/main/java/Move/HumanMove.java
 /Users/romil/MyApps/slackapp/src/main/java/Move/AIMove.java
