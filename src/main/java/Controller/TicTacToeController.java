@@ -10,8 +10,10 @@ import Input.QuitRequest;
 import Input.ShowRequest;
 import Input.StartRequest;
 import Model.Player;
+import Model.RichMessage;
 import Move.HumanMove;
 import Model.Channel;
+import com.sun.xml.internal.ws.api.message.Attachment;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,10 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TicTacToeController {
 
-    @RequestMapping(value = "/slash-command",
+    @RequestMapping(value = "/ttt",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public void onReceiveSlashCommand(@RequestParam("token") String token,
+    public RichMessage onReceiveSlashCommand(@RequestParam("token") String token,
                                              @RequestParam("team_id") String teamId,
                                              @RequestParam("team_domain") String teamDomain,
                                              @RequestParam("channel_id") String channelId,
@@ -34,6 +36,20 @@ public class TicTacToeController {
                                              @RequestParam("command") String command,
                                              @RequestParam("text") String text,
                                              @RequestParam("response_url") String responseUrl) {
+        if (!token.equals("1srioIYXF0frkaSWj8yAGIqS")) {
+            return new RichMessage("Sorry! You're not lucky enough to use our slack command.");
+        }
+
+        /** build response */
+        RichMessage richMessage = new RichMessage("The TTT game");
+        richMessage.setResponseType("in_channel");
+        // set attachments
+//        Attachment[] attachments = new Attachment[1];
+//        attachments[0] = new Attachment();
+//        attachments[0].setText("I will perform all tasks for you.");
+//        richMessage.setAttachments(attachments);
+        return richMessage.encodedMessage();
+
 
     }
 
