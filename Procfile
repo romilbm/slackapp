@@ -1,1 +1,1 @@
-web: -Dserver.port=$PORT -jar target/slack-app-1.0-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -jar target/slack-app-1.0-SNAPSHOT.jar
