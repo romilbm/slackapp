@@ -3,6 +3,7 @@ Exceptions/NoGameInProgressException.class
 Output/StartResponse.class
 Enums/WinConfig.class
 Model/Channel.class
+Controller/Application.class
 Input/StartRequest.class
 Interfaces/MoveMethod.class
 Exceptions/GameInProgressException.class
