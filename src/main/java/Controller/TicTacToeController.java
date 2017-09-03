@@ -13,7 +13,6 @@ import Model.Player;
 import Model.RichMessage;
 import Move.HumanMove;
 import Model.Channel;
-import com.sun.xml.internal.ws.api.message.Attachment;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

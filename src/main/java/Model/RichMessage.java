@@ -2,7 +2,6 @@ package Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.xml.internal.ws.api.message.Attachment;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RichMessage {
@@ -13,7 +12,6 @@ public class RichMessage {
     private String text;
     @JsonProperty("response_type")
     private String responseType;
-    private Attachment[] attachments;
 
     public RichMessage() {
     }
@@ -65,13 +63,5 @@ public class RichMessage {
 
     public void setResponseType(String responseType) {
         this.responseType = responseType;
-    }
-
-    public Attachment[] getAttachments() {
-        return attachments;
-    }
-
-    public void setAttachments(Attachment[] attachments) {
-        this.attachments = attachments;
     }
 }
