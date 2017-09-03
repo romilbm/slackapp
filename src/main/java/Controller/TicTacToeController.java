@@ -35,6 +35,8 @@ public class TicTacToeController {
                                              @RequestParam("command") String command,
                                              @RequestParam("text") String text,
                                              @RequestParam("response_url") String responseUrl) {
+
+        System.out.println("Came here! =============== ____________ ++++++++++++++++++ ");
         if (!token.equals("1srioIYXF0frkaSWj8yAGIqS")) {
             return new RichMessage("Sorry! You're not lucky enough to use our slack command.");
         }
@@ -42,11 +44,6 @@ public class TicTacToeController {
         /** build response */
         RichMessage richMessage = new RichMessage("The TTT game");
         richMessage.setResponseType("in_channel");
-        // set attachments
-//        Attachment[] attachments = new Attachment[1];
-//        attachments[0] = new Attachment();
-//        attachments[0].setText("I will perform all tasks for you.");
-//        richMessage.setAttachments(attachments);
         return richMessage.encodedMessage();
 
 
