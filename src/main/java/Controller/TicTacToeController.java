@@ -13,6 +13,7 @@ import Model.Player;
 import Model.RichMessage;
 import Move.HumanMove;
 import Model.Channel;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TicTacToeController {
+
+    @Value("${slashCommandToken}")
+    private String slackToken;
 
     @RequestMapping(value = "/ttt",
             method = RequestMethod.POST,
@@ -37,7 +41,7 @@ public class TicTacToeController {
                                              @RequestParam("response_url") String responseUrl) {
 
         System.out.println("Came here! =============== ____________ ++++++++++++++++++ ");
-        if (!token.equals("1srioIYXF0frkaSWj8yAGIqS")) {
+        if (!token.equals(slackToken)) {
             return new RichMessage("Sorry! You're not lucky enough to use our slack command.");
         }
 
