@@ -12,8 +12,31 @@ import Input.StartRequest;
 import Model.Player;
 import Move.HumanMove;
 import Model.Channel;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class TicTacToeController {
+
+    @RequestMapping(value = "/slash-command",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public void onReceiveSlashCommand(@RequestParam("token") String token,
+                                             @RequestParam("team_id") String teamId,
+                                             @RequestParam("team_domain") String teamDomain,
+                                             @RequestParam("channel_id") String channelId,
+                                             @RequestParam("channel_name") String channelName,
+                                             @RequestParam("user_id") String userId,
+                                             @RequestParam("user_name") String userName,
+                                             @RequestParam("command") String command,
+                                             @RequestParam("text") String text,
+                                             @RequestParam("response_url") String responseUrl) {
+
+    }
+
     public String start(String name1, String id1, String name2, String id2, String channelId, String channelName) {
         Player p1 = new Player(name1, id1, new HumanMove(), Symbol.X);
         Player p2 = new Player(name2, id2, new HumanMove(), Symbol.ZERO);

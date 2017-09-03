@@ -27,11 +27,11 @@ public class Quit {
             quitResponse = new QuitResponse(new NoGameInProgressException(TTTExceptions.NO_GAME_IN_PROGRESS));
         }
 
-        if (!ttt.isValidPlayer(quitRequest.getPlayer().getId())) {
+        if (!ttt.isValidPlayer(quitRequest.getPlayerId())) {
             quitResponse = new QuitResponse(new IncorrectPlayerException(TTTExceptions.INCORRECT_PLAYER_PLAY));
         }
 
-        TTTResult result = ttt.quit(quitRequest.getPlayer());
+        TTTResult result = ttt.quit(quitRequest.getPlayerId());
         ongoingGames.endGameInChannel(quitRequest.getChannel());
         quitResponse = new QuitResponse(ttt.toString(), result);
     }

@@ -143,8 +143,8 @@ public class TicTacToe {
         return false;
     }
 
-    public TTTResult quit(Player player) {
-        Player winner = players[0].getId() == player.getId() ? players[1] : players[0];
+    public TTTResult quit(String playerId) {
+        Player winner = players[0].getId().equals(playerId) ? players[1] : players[0];
         result = new TTTResult(players, WinConfig.WIN, winner);
         return result;
     }

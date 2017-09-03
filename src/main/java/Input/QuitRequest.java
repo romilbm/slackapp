@@ -20,4 +20,8 @@ public class QuitRequest {
             throw new IllegalArgumentException();
         }
     }
+
+    public String getPlayerId() {
+        return playerId;
+    }
 }
