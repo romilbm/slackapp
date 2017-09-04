@@ -41,16 +41,42 @@ public class TicTacToeController {
                                              @RequestParam("response_url") String responseUrl) {
 
         System.out.println("Came here! =============== ____________ ++++++++++++++++++ ");
+
+        String response;
+        String[] commandParts = text.split(" ");
+        if (commandParts[0].equals("start")) {
+            String[] userInfo = extractUser(commandParts[1]);
+            response = start(userName, userId, userInfo[1], userInfo[0], channelId, channelName);
+        } else if (commandParts[0].equals("move")) {
+            int position = Integer.parseInt(commandParts[1]);
+            response = move(userId, position, channelId, channelName);
+        } else if (commandParts[0].equals("quit")) {
+            response = quit(userId, channelId, channelName);
+        } else if (commandParts[0].equals("show")) {
+            response = show(channelId, channelName);
+        } else {
+            response = "Invalid command";
+        }
+
+
         if (!token.equals(slackToken)) {
             return new RichMessage("Sorry! You're not lucky enough to use our slack command.");
         }
 
         /** build response */
-        RichMessage richMessage = new RichMessage("The TTT game");
+        RichMessage richMessage = new RichMessage(response);
         richMessage.setResponseType("in_channel");
         return richMessage.encodedMessage();
 
 
+    }
+
+    private String[] extractUser(String commandPart) {
+        String[] user = commandPart.substring(0, commandPart.length()-1).split("|");
+        String id = user[0];
+        String name = user[1];
+
+        return new String[] {id, name};
     }
 
     public String start(String name1, String id1, String name2, String id2, String channelId, String channelName) {
