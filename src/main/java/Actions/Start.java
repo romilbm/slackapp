@@ -17,6 +17,7 @@ public class Start {
     public Start(StartRequest startRequest) {
         this.startRequest = startRequest;
         ongoingGames = OngoingGames.getInstance();
+        System.out.println("Total ongoing games: " + ongoingGames.getTotalOngoingGames());
     }
 
     public void run() {

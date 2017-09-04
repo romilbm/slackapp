@@ -7,18 +7,6 @@ public class QuitResponse {
     private TTTResult result;
     private Exception exception;
 
-    public String getGameState() {
-        return gameState;
-    }
-
-    public TTTResult getResult() {
-        return result;
-    }
-
-    public Exception getException() {
-        return exception;
-    }
-
     public QuitResponse(Exception exception) {
         this.exception = exception;
     }
@@ -26,5 +14,10 @@ public class QuitResponse {
     public QuitResponse(String gameState, TTTResult result) {
         this.gameState = gameState;
         this.result = result;
+    }
+
+    public String toString() {
+        if (exception != null) return exception.getMessage();
+        return gameState + "\n" + result + "\n";
     }
 }

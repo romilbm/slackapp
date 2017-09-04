@@ -43,17 +43,30 @@ public class TicTacToeController {
         System.out.println("Came here! =============== ____________ ++++++++++++++++++ ");
 
         String response;
+
+        System.out.println(text);
         String[] commandParts = text.split(" ");
+
+        System.out.println("text parts");
+        for (String p: commandParts) {
+            System.out.print(p + " ");
+        }
+        System.out.println();
+
         if (commandParts[0].equals("start")) {
             String[] userInfo = extractUser(commandParts[1]);
             response = start(userName, userId, userInfo[1], userInfo[0], channelId, channelName);
+            System.out.println("start command params:" + userName + " " + userId + " " + userInfo[1] + " " + userInfo[0] + " " + channelId + " " + channelName);
         } else if (commandParts[0].equals("move")) {
             int position = Integer.parseInt(commandParts[1]);
             response = move(userId, position, channelId, channelName);
+            System.out.println("move command params:" + userId + " " + position + " " + channelId + " " + channelName);
         } else if (commandParts[0].equals("quit")) {
             response = quit(userId, channelId, channelName);
+            System.out.println("quit command params:" + userId + " " + channelId + " " + channelName);
         } else if (commandParts[0].equals("show")) {
             response = show(channelId, channelName);
+            System.out.println("show command params:" + channelId + " " + channelName);
         } else {
             response = "Invalid command";
         }
@@ -72,9 +85,16 @@ public class TicTacToeController {
     }
 
     private String[] extractUser(String commandPart) {
-        String[] user = commandPart.substring(0, commandPart.length()-1).split("|");
-        String id = user[0];
+        String cp = commandPart.substring(1, commandPart.length()-1);
+        System.out.println("cp = " + cp);
+        String regex = "\\|";
+        String[] user = cp.split(regex);
+
+        String id = user[0].substring(1);
+        System.out.println("id:" + id);
+
         String name = user[1];
+        System.out.println("name:" + name);
 
         return new String[] {id, name};
     }

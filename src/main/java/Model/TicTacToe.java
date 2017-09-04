@@ -106,10 +106,12 @@ public class TicTacToe {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("```\n");
         // iterate through the rows
         for (int i = 0; i < 3; i++) {
             sb.append(getRowString(i));
         }
+        sb.append("\n```");
         return sb.toString();
     }
     

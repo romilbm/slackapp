@@ -35,9 +35,9 @@ public class StartResponse {
         sb.append("Tic Tac Toe game started.\n");
         sb.append(participants[0]);
         sb.append(" v/s ");
-        sb.append(participants[0]);
+        sb.append(participants[1]);
         sb.append("\n");
-        sb.append("Next Turn: " + nextPlayer.getName());
+        sb.append("Next Turn: @" + nextPlayer.getName());
         sb.append("\n");
         sb.append("Please make your move selection by entering "
                 + "a number 1-9 corresponding to the movement "

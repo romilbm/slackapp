@@ -20,10 +20,14 @@ public class Move {
     public Move(MoveRequest moveRequest) {
         this.moveRequest = moveRequest;
         ongoingGames = OngoingGames.getInstance();
+        System.out.println("Total ongoing games: " + ongoingGames.getTotalOngoingGames());
     }
 
     public void run() {
         TicTacToe ttt = ongoingGames.getGameForChannel(moveRequest.getChannel());
+        System.out.println("Here 2");
+        System.out.println(ttt);
+
         if (ttt == null) {
             moveResponse = new MoveResponse(new NoGameInProgressException(TTTExceptions.NO_GAME_IN_PROGRESS));
             return;

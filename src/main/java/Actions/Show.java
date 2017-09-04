@@ -16,14 +16,18 @@ public class Show {
     public Show(ShowRequest showRequest) {
         this.showRequest = showRequest;
         ongoingGames = OngoingGames.getInstance();
+        System.out.println("Total ongoing games: " + ongoingGames.getTotalOngoingGames());
     }
 
     public void run() {
         TicTacToe ttt = ongoingGames.getGameForChannel(showRequest.getChannel());
+        System.out.println("Here 1");
+        System.out.println(ttt);
         if (ttt == null) {
             showResponse = new ShowResponse(new NoGameInProgressException(TTTExceptions.NO_GAME_IN_PROGRESS));
+            return;
         }
-        showResponse = new ShowResponse(ttt.toString(), ttt.getPlayers(), ttt.getWinConfig());
+        showResponse = new ShowResponse(ttt.toString(), ttt.getPlayers(), ttt.getNextPlayer());
     }
 
     public ShowResponse getShowResponse() {

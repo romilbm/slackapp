@@ -27,21 +27,34 @@ public class OngoingGames implements DataAccessor {
     }
 
     public TicTacToe getGameForChannel(Channel channel) {
-        if (ongoingGames.getOngoingGamesMap().containsKey(channel)) return null;
+        System.out.println("Requested Channel : " + channel.getChannelName() + " " + channel.getChannelId());
+        printAllGames();
+        if (!ongoingGames.getOngoingGamesMap().containsKey(channel)) return null;
         return ongoingGames.getOngoingGamesMap().get(channel);
     }
 
-    public void setGameForChannel(TicTacToe ticTacToe, Channel channel) {
+    public void setGameForChannel(TicTacToe ticTacToe, Channel channel) throws IllegalStateException {
         if (ongoingGames.getOngoingGamesMap().containsKey(channel)) {
             throw new IllegalStateException();
         }
         ongoingGames.getOngoingGamesMap().put(channel, ticTacToe);
     }
 
-    public void endGameInChannel(Channel channel) {
-        if (ongoingGames.getOngoingGamesMap().containsKey(channel)) {
+    public void endGameInChannel(Channel channel) throws IllegalStateException {
+        if (!ongoingGames.getOngoingGamesMap().containsKey(channel)) {
             throw new IllegalStateException();
         }
         ongoingGames.getOngoingGamesMap().remove(channel);
+    }
+
+    public int getTotalOngoingGames() {
+        return ongoingGames.getOngoingGamesMap().size();
+    }
+
+    private void printAllGames() {
+        System.out.println("All ongoing games");
+        for (Channel c: ongoingGamesMap.keySet()) {
+            System.out.println(c.getChannelName() + " " + c.getChannelId());
+        }
     }
 }
