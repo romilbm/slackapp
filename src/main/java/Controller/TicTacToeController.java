@@ -26,7 +26,7 @@ public class TicTacToeController {
     @Value("${slashCommandToken}")
     private String slackToken;
 
-    @RequestMapping(value = "/ttt",
+    @RequestMapping(value = "/rottt",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public RichMessage onReceiveSlashCommand(@RequestParam("token") String token,
