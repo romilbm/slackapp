@@ -158,14 +158,33 @@ public class TicTacToe {
      */
     public EndConfig playMove(int position) throws InvalidMoveException {
         nextPlayer.move(board, position);
-        EndConfig w = calculateEndConfig();
-        if (!w.equals(EndConfig.NONE)) {
-            result = new TTTResult(players, w, nextPlayer);
+        EndConfig endConfig = calculateEndConfig();
+        if (!endConfig.equals(EndConfig.NONE)) {
+            result = new TTTResult(players, endConfig, nextPlayer);
         } else {
             playerIndex++;
             nextPlayer = players[playerIndex % 2];
         }
-        return w;
+
+//        if (nextPlayer)
+        return endConfig;
+    }
+
+    private EndConfig playAIMove() throws InvalidMoveException {
+        try {
+            nextPlayer.move(board, null);
+        } catch (InvalidMoveException e) {
+            throw new InvalidMoveException("The AI played in invalid move! Log a ticket to the developers!");
+        }
+
+        EndConfig endConfig = calculateEndConfig();
+        if (!endConfig.equals(EndConfig.NONE)) {
+            result = new TTTResult(players, endConfig, nextPlayer);
+        } else {
+            playerIndex++;
+            nextPlayer = players[playerIndex % 2];
+        }
+        return endConfig;
     }
 
     /**

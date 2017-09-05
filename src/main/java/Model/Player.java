@@ -26,7 +26,7 @@ public class Player {
         return name;
     }
 
-    public String move(int[][] board, int position) throws InvalidMoveException {
+    public String move(int[][] board, Integer position) throws InvalidMoveException {
         return moveStrategy.move(board, symbol, position);
     }
 
