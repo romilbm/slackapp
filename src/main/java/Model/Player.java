@@ -37,13 +37,4 @@ public class Player {
     public String getId() {
         return id;
     }
-
-    public boolean isValid() {
-        if (name == null || name.isEmpty()
-         || id == null || id.isEmpty()) {
-            return false;
-        }
-
-        return true;
-    }
 }

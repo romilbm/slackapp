@@ -3,6 +3,9 @@ package Input;
 import Interfaces.Request;
 import Model.Channel;
 
+/**
+ * The Request wrapper class for the Quit Action.
+ */
 public class QuitRequest implements Request {
     private static String CORRECT_FORMAT = "Incorrect format the correct format is /rottt quit";
     String playerId;
@@ -23,7 +26,7 @@ public class QuitRequest implements Request {
         return channel;
     }
 
-    public void validateRequest() throws IllegalArgumentException{
+    public void validateRequestAndExtract() throws IllegalArgumentException{
         if (!commandText.equals("quit")) {
             throw new IllegalArgumentException(CORRECT_FORMAT);
         }

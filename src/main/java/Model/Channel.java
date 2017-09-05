@@ -31,12 +31,4 @@ public class Channel {
     public String getChannelId() {
         return channelId;
     }
-
-    public boolean isValid() {
-        if (channelId == null || channelId.isEmpty()
-          || channelName == null || channelName.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
 }

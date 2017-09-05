@@ -5,9 +5,14 @@ import Interfaces.Request;
 import Interfaces.Response;
 import Output.HelpResponse;
 
+/**
+ * Invoked when /rottt help is called by a user.
+ * This action gives serves the help menu for the TTT game.
+ */
 public class Help extends TTTAction {
     HelpRequest helpRequest;
     HelpResponse helpResponse;
+
     @Override
     public void run() {
         helpResponse = new HelpResponse();

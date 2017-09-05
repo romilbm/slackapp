@@ -16,6 +16,11 @@ public class Show extends TTTAction {
 
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Any one is the channel can view the status of an ongoing game if there is one.
+     */
     public void run() {
         TicTacToe ttt = ongoingGames.getGameForChannel(showRequest.getChannel());
         if (ttt == null) {

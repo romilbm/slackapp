@@ -3,6 +3,9 @@ package Input;
 import Interfaces.Request;
 import Model.Channel;
 
+/**
+ * The Request wrapper class for the Move Action.
+ */
 public class ShowRequest implements Request {
     private static String CORRECT_FORMAT = "Incorrect format the correct format is /rottt show";
     Channel channel;
@@ -20,7 +23,7 @@ public class ShowRequest implements Request {
         return channel;
     }
 
-    public void validateRequest() throws IllegalArgumentException{
+    public void validateRequestAndExtract() throws IllegalArgumentException{
         if (!commandText.equals("show")) {
             throw new IllegalArgumentException(CORRECT_FORMAT);
         }

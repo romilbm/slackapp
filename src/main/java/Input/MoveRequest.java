@@ -3,6 +3,9 @@ package Input;
 import Interfaces.Request;
 import Model.Channel;
 
+/**
+ * The Request wrapper class for the Move Action.
+ */
 public class MoveRequest implements Request {
     private static String CORRECT_FORMAT = "Incorrect format the correct format is /rottt move <position>";
     private String userId;
@@ -32,7 +35,15 @@ public class MoveRequest implements Request {
         return channel;
     }
 
-    public void validateRequest() throws IllegalArgumentException {
+    /**
+     * {@inheritDoc}
+     * If the command text contains more than 2 strings,
+     * Or the second string cannot be parsed into a number,
+     * It considers the user input as invalid and throws an exception.
+     * Barring that, it extracts the channel, the userId of the player and the move position choice.
+     * @throws IllegalArgumentException
+     */
+    public void validateRequestAndExtract() throws IllegalArgumentException {
         String[] p = commandText.split(" ");
         if (p.length != 2) throw new IllegalArgumentException(CORRECT_FORMAT);
 

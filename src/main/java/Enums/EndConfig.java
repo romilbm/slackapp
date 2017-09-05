@@ -1,5 +1,5 @@
 package Enums;
 
-public enum WinConfig {
+public enum EndConfig {
     DRAW, WIN, NONE
 }

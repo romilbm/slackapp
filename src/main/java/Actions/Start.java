@@ -17,6 +17,12 @@ public class Start extends TTTAction {
 
     }
 
+    /**
+     * {@inheritDoc}
+     * If a game is in progress in the channel, a new game cannot be started.
+     * Barring that, a new game will be started between two players.
+     * That game will be associated with that channel and no other game can start till this game is ongoing.
+     */
     public void run() {
         TicTacToe ttt = ongoingGames.getGameForChannel(startRequest.getChannel());
         if (ttt != null) {

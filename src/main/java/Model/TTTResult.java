@@ -1,35 +1,27 @@
 package Model;
 
-import Enums.WinConfig;
+import Enums.EndConfig;
 
+/**
+ * It is set when the game concludes either in win or Draw.
+ * It returns the {@link EndConfig}, the participants and the winner if there was one.
+ */
 public class TTTResult {
     private Player[] participants;
-    private WinConfig w;
+    private EndConfig w;
     private Player winner;
 
-    public TTTResult(Player[] participants, WinConfig w, Player winner) {
+    public TTTResult(Player[] participants, EndConfig w, Player winner) {
         this.participants = participants;
         this.w = w;
         this.winner = winner;
-    }
-
-    public Player[] getParticipants() {
-        return participants;
-    }
-
-    public WinConfig getW() {
-        return w;
-    }
-
-    public Player getWinner() {
-        return winner;
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Players = " + participants[0] + " and " + participants[1]  + "\n");
         sb.append("Result = " + w + "\n");
-        if (!w.equals(WinConfig.DRAW)) {
+        if (!w.equals(EndConfig.DRAW)) {
             sb.append("Winner = " + winner);
         }
 

@@ -1,6 +1,6 @@
 package Actions;
 
-import Enums.WinConfig;
+import Enums.EndConfig;
 import Exceptions.IncorrectPlayerException;
 import Exceptions.InvalidMoveException;
 import Exceptions.NoGameInProgressException;
@@ -20,6 +20,21 @@ public class Move extends TTTAction {
 
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * The move action is not allowed for a user when:
+     * - no game is in progress.
+     * - the wrong player tried to play their turn.
+     * - an unassociated player tried to move.
+     *
+     * In all other cases it attempts to make a move. If the move is invalid for any reason, it responds accordingly.
+     * A move may be invalid if the number is less than 1 or greater than 9.
+     * Or the position is already occupied.
+     *
+     * If the move turns out to be a game concluding move, it removes the game's association with the channel.
+     */
+    @Override
     public void run() {
         TicTacToe ttt = ongoingGames.getGameForChannel(moveRequest.getChannel());
 
@@ -38,27 +53,33 @@ public class Move extends TTTAction {
             return;
         }
 
-        WinConfig winConfig;
+        EndConfig endConfig;
         try {
-            winConfig = ttt.playMove(moveRequest.getMove());
+            endConfig = ttt.playMove(moveRequest.getMove());
         } catch (InvalidMoveException e) {
             moveResponse = new MoveResponse(e);
             return;
         }
 
-        if (!winConfig.equals(WinConfig.NONE)) {
+        if (!endConfig.equals(EndConfig.NONE)) {
             ongoingGames.endGameInChannel(moveRequest.getChannel());
         }
-        moveResponse = new MoveResponse(ttt.toString(), ttt.getResult(), winConfig,
+        moveResponse = new MoveResponse(ttt.toString(), ttt.getResult(), endConfig,
                 ttt.getPlayer(moveRequest.getPlayerId()), ttt.getNextPlayer(),
                 TicTacToeHelper.getPosDescription(moveRequest.getMove()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setRequest(Request request) {
         moveRequest = (MoveRequest) request;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Response getResponse() {
         return moveResponse;

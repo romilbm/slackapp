@@ -6,6 +6,9 @@ import Model.Channel;
 import Model.Player;
 import Move.HumanMove;
 
+/**
+ * The Request wrapper class for the Move Action.
+ */
 public class StartRequest implements Request{
     private static String CORRECT_FORMAT = "The correct format is /rottt start <@otherPlayer>";
     private Player p1;
@@ -37,14 +40,22 @@ public class StartRequest implements Request{
         return channel;
     }
 
-    public void validateRequest() throws IllegalArgumentException {
+    /**
+     * {@inheritDoc}
+     * The command text should contain a valid player
+     * i.e. the id and name should be of the form <@U1234|name>
+     * The other player cannot be the first player.
+     *
+     * @throws IllegalArgumentException
+     */
+    public void validateRequestAndExtract() throws IllegalArgumentException {
         if (commandText.split(" ").length != 2) {
             throw new IllegalArgumentException(CORRECT_FORMAT);
         }
         p1 = new Player(userName, userId, new HumanMove(), Symbol.X);
         try {
-            String[] userInfo = extractUser(commandText);
-            p2 = new Player(userInfo[0], userInfo[1], new HumanMove(), Symbol.ZERO);
+            String[] secondPlayerInfo = extractUser(commandText);
+            p2 = new Player(secondPlayerInfo[0], secondPlayerInfo[1], new HumanMove(), Symbol.ZERO);
         } catch (Exception e) {
             throw new IllegalArgumentException("Enter the opponent in the correct format. " + CORRECT_FORMAT);
         }
@@ -55,16 +66,26 @@ public class StartRequest implements Request{
         channel = new Channel(channelId, channelName);
     }
 
+    /**
+     * Extracts the command text in the form "start <@U1234|name>" and returns {U1234, name}.
+     * @param commandPart
+     * @return
+     */
     private String[] extractUser(String commandPart) {
-        String[] p = commandPart.split(" ");
+        String[] partsOfCommandText = commandPart.split(" ");
         String regex = "\\|";
-        String[] user = p[1].substring(1, p[1].length()-1).split(regex);
 
-        String id = user[0].substring(1);
+        //separate out the <@U1234|name> part
+        // then substring to get @U1234|name
+        // then split by | to get @U1234 and name
+        String[] userInfo = partsOfCommandText[1].substring(1, partsOfCommandText[1].length()-1).split(regex);
+
+        String id = userInfo[0].substring(1);
+        //verify it is indeed user id and not some other entity.
         if (id.charAt(0) != 'U') {
             throw new IllegalArgumentException();
         }
-        String name = user[1];
+        String name = userInfo[1];
 
         return new String[] {name, id};
     }

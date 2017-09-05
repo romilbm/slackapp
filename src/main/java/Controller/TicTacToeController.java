@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The main controller for the slash command.
+ * It authenticates the token of the POST. If it is valid,
+ * It initiates the action for the user and runs that action.
+ * Then it gets the response for that action, encodes it and returns it back to the channel.
+ */
 @SpringBootApplication
 @RestController
 public class TicTacToeController {

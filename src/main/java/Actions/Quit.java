@@ -17,7 +17,13 @@ public class Quit extends TTTAction {
     public Quit() {
 
     }
-
+    /**
+     * {@inheritDoc}
+     *
+     * A player not a part of the ongoing game is not allowed to quit the game.
+     * No one can quit a game when there is no ongoing game.
+     * When a user quits a game, the game's association with the channel is removed so that a new game can be started.
+     */
     public void run() {
         TicTacToe ttt = ongoingGames.getGameForChannel(quitRequest.getChannel());
         if (ttt == null) {

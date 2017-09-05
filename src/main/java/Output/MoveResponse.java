@@ -1,13 +1,13 @@
 package Output;
 
-import Enums.WinConfig;
+import Enums.EndConfig;
 import Interfaces.Response;
 import Model.Player;
 import Model.TTTResult;
 
 public class MoveResponse implements Response {
     private String gameState;
-    private WinConfig winConfig;
+    private EndConfig endConfig;
     private TTTResult result;
     private Player currentPlayer;
     private Player nextPlayer;
@@ -18,10 +18,10 @@ public class MoveResponse implements Response {
         this.exception = exception;
     }
 
-    public MoveResponse(String s, TTTResult result, WinConfig winConfig, Player currentPlayer, Player nextPlayer, String posDescription) {
+    public MoveResponse(String s, TTTResult result, EndConfig endConfig, Player currentPlayer, Player nextPlayer, String posDescription) {
         this.gameState = s;
         this.result = result;
-        this.winConfig = winConfig;
+        this.endConfig = endConfig;
         this.currentPlayer = currentPlayer;
         this.nextPlayer = nextPlayer;
         this.positionDescription = posDescription;
@@ -38,7 +38,7 @@ public class MoveResponse implements Response {
         sb.append(gameState);
         sb.append("\n");
 
-        if (!winConfig.equals(WinConfig.NONE)) {
+        if (!endConfig.equals(EndConfig.NONE)) {
             sb.append("Game Over");
             sb.append("\n");
             sb.append(result);
