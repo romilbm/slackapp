@@ -1,8 +1,9 @@
 package Output;
 
+import Interfaces.Response;
 import Model.Player;
 
-public class ShowResponse {
+public class ShowResponse implements Response {
     private String gameState;
     private Player[] players;
     private Player nextPlayer;

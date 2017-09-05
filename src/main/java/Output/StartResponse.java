@@ -1,8 +1,9 @@
 package Output;
 
+import Interfaces.Response;
 import Model.Player;
 
-public class StartResponse {
+public class StartResponse implements Response {
     private Player nextPlayer;
     private Exception exception;
     private Player[] participants;
@@ -16,14 +17,6 @@ public class StartResponse {
         this.nextPlayer = nextPlayer;
         this.participants = participants;
         this.gameState = gameState;
-    }
-
-    public Player getNextPlayer() {
-        return nextPlayer;
-    }
-
-    public Exception getException() {
-        return exception;
     }
 
     public String toString() {

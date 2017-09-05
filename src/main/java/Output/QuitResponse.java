@@ -1,8 +1,9 @@
 package Output;
 
+import Interfaces.Response;
 import Model.TTTResult;
 
-public class QuitResponse {
+public class QuitResponse implements Response {
     private String gameState;
     private TTTResult result;
     private Exception exception;

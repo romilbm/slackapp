@@ -1,38 +1,32 @@
 package Actions;
 
-import DataAccess.OngoingGames;
 import Exceptions.IncorrectPlayerException;
 import Exceptions.NoGameInProgressException;
-import Exceptions.TTTExceptions;
+import Exceptions.TTTExceptionMessage;
 import Input.QuitRequest;
-import Interfaces.DataAccessor;
+import Interfaces.Request;
+import Interfaces.Response;
 import Model.TTTResult;
 import Model.TicTacToe;
 import Output.QuitResponse;
 
-public class Quit {
-    private DataAccessor ongoingGames;
+public class Quit extends TTTAction {
     private QuitRequest quitRequest;
     private QuitResponse quitResponse;
 
+    public Quit() {
 
-    public Quit(QuitRequest quitRequest) {
-        this.quitRequest = quitRequest;
-        ongoingGames = OngoingGames.getInstance();
-        System.out.println("Total ongoing games: " + ongoingGames.getTotalOngoingGames());
     }
 
     public void run() {
         TicTacToe ttt = ongoingGames.getGameForChannel(quitRequest.getChannel());
-        System.out.println("Here 3");
-        System.out.println(ttt);
         if (ttt == null) {
-            quitResponse = new QuitResponse(new NoGameInProgressException(TTTExceptions.NO_GAME_IN_PROGRESS));
+            quitResponse = new QuitResponse(new NoGameInProgressException(TTTExceptionMessage.NO_GAME_IN_PROGRESS));
             return;
         }
 
         if (!ttt.isValidPlayer(quitRequest.getPlayerId())) {
-            quitResponse = new QuitResponse(new IncorrectPlayerException(TTTExceptions.INCORRECT_PLAYER_PLAY));
+            quitResponse = new QuitResponse(new IncorrectPlayerException(TTTExceptionMessage.INCORRECT_PLAYER_PLAY));
             return;
         }
 
@@ -41,7 +35,13 @@ public class Quit {
         quitResponse = new QuitResponse(ttt.toString(), result);
     }
 
-    public QuitResponse getQuitResponse() {
+    @Override
+    public void setRequest(Request request) {
+        quitRequest = (QuitRequest) request;
+    }
+
+    @Override
+    public Response getResponse() {
         return quitResponse;
     }
 }

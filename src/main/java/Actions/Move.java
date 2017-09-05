@@ -1,45 +1,40 @@
 package Actions;
 
-import DataAccess.OngoingGames;
 import Enums.WinConfig;
 import Exceptions.IncorrectPlayerException;
 import Exceptions.InvalidMoveException;
 import Exceptions.NoGameInProgressException;
-import Exceptions.TTTExceptions;
+import Exceptions.TTTExceptionMessage;
 import Helpers.TicTacToeHelper;
 import Input.MoveRequest;
-import Interfaces.DataAccessor;
+import Interfaces.Request;
+import Interfaces.Response;
 import Model.TicTacToe;
 import Output.MoveResponse;
 
-public class Move {
+public class Move extends TTTAction {
     private MoveRequest moveRequest;
     private MoveResponse moveResponse;
-    private DataAccessor ongoingGames;
 
-    public Move(MoveRequest moveRequest) {
-        this.moveRequest = moveRequest;
-        ongoingGames = OngoingGames.getInstance();
-        System.out.println("Total ongoing games: " + ongoingGames.getTotalOngoingGames());
+    public Move() {
+
     }
 
     public void run() {
         TicTacToe ttt = ongoingGames.getGameForChannel(moveRequest.getChannel());
-        System.out.println("Here 2");
-        System.out.println(ttt);
 
         if (ttt == null) {
-            moveResponse = new MoveResponse(new NoGameInProgressException(TTTExceptions.NO_GAME_IN_PROGRESS));
+            moveResponse = new MoveResponse(new NoGameInProgressException(TTTExceptionMessage.NO_GAME_IN_PROGRESS));
             return;
         }
 
         if (!ttt.isValidPlayer(moveRequest.getPlayerId())) {
-            moveResponse = new MoveResponse(new IncorrectPlayerException(TTTExceptions.INCORRECT_PLAYER_PLAY));
+            moveResponse = new MoveResponse(new IncorrectPlayerException(TTTExceptionMessage.INCORRECT_PLAYER_PLAY));
             return;
         }
 
         if (!ttt.isNextPlayer(moveRequest.getPlayerId())) {
-            moveResponse = new MoveResponse(new IncorrectPlayerException(TTTExceptions.INCORRECT_PLAYER_TURN));
+            moveResponse = new MoveResponse(new IncorrectPlayerException(TTTExceptionMessage.INCORRECT_PLAYER_TURN));
             return;
         }
 
@@ -59,7 +54,13 @@ public class Move {
                 TicTacToeHelper.getPosDescription(moveRequest.getMove()));
     }
 
-    public MoveResponse getMoveResponse() {
+    @Override
+    public void setRequest(Request request) {
+        moveRequest = (MoveRequest) request;
+    }
+
+    @Override
+    public Response getResponse() {
         return moveResponse;
     }
 }

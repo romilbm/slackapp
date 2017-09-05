@@ -1,7 +1,6 @@
 package Model;
 
 import Enums.WinConfig;
-import Model.Player;
 
 public class TTTResult {
     private Player[] participants;

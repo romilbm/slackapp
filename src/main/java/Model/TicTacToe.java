@@ -123,7 +123,7 @@ public class TicTacToe {
     public WinConfig playMove(int position) throws InvalidMoveException {
         nextPlayer.move(board, position);
         WinConfig w = calculateWinConfig();
-        if (w == WinConfig.WIN) {
+        if (!w.equals(WinConfig.NONE)) {
             result = new TTTResult(players, w, nextPlayer);
         } else {
             playerIndex++;
@@ -149,10 +149,6 @@ public class TicTacToe {
         Player winner = players[0].getId().equals(playerId) ? players[1] : players[0];
         result = new TTTResult(players, WinConfig.WIN, winner);
         return result;
-    }
-
-    public WinConfig getWinConfig() {
-        return winConfig;
     }
 
     public Player[] getPlayers() {

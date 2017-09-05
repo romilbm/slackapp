@@ -11,5 +11,4 @@ public interface DataAccessor {
     TicTacToe getGameForChannel(Channel channel);
     void setGameForChannel(TicTacToe ticTacToe, Channel channel) throws IllegalStateException;
     void endGameInChannel(Channel channel) throws IllegalStateException;
-    int getTotalOngoingGames();
 }

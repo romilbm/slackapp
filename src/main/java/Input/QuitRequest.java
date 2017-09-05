@@ -1,14 +1,22 @@
 package Input;
 
+import Interfaces.Request;
 import Model.Channel;
 
-public class QuitRequest {
+public class QuitRequest implements Request {
+    private static String CORRECT_FORMAT = "Incorrect format the correct format is /rottt quit";
     String playerId;
     Channel channel;
+    private String commandText;
+    private String userId;
+    private String channelId;
+    private String channelName;
 
-    public QuitRequest(String playerId, Channel channel) {
-        this.playerId = playerId;
-        this.channel = channel;
+    public QuitRequest(String commandText, String userId, String channelId, String channelName) {
+        this.commandText = commandText;
+        this.userId = userId;
+        this.channelId = channelId;
+        this.channelName = channelName;
     }
 
     public Channel getChannel() {
@@ -16,9 +24,11 @@ public class QuitRequest {
     }
 
     public void validateRequest() throws IllegalArgumentException{
-        if (playerId == null || playerId.isEmpty() || !channel.isValid()) {
-            throw new IllegalArgumentException();
+        if (!commandText.equals("quit")) {
+            throw new IllegalArgumentException(CORRECT_FORMAT);
         }
+        playerId = userId;
+        channel = new Channel(channelId, channelName);
     }
 
     public String getPlayerId() {

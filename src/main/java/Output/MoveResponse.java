@@ -1,10 +1,11 @@
 package Output;
 
 import Enums.WinConfig;
+import Interfaces.Response;
 import Model.Player;
 import Model.TTTResult;
 
-public class MoveResponse {
+public class MoveResponse implements Response {
     private String gameState;
     private WinConfig winConfig;
     private TTTResult result;

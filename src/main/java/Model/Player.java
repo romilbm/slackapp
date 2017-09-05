@@ -17,10 +17,6 @@ public class Player {
         this.symbol = symbol;
     }
 
-    public MoveMethod getMoveStrategy() {
-        return moveStrategy;
-    }
-
     public Symbol getSymbol() {
         return symbol;
     }

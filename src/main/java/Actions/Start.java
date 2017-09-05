@@ -1,29 +1,26 @@
 package Actions;
 
-import DataAccess.OngoingGames;
 import Exceptions.GameInProgressException;
-import Exceptions.TTTExceptions;
+import Exceptions.TTTExceptionMessage;
 import Input.StartRequest;
-import Interfaces.DataAccessor;
+import Interfaces.Request;
+import Interfaces.Response;
 import Model.Player;
 import Model.TicTacToe;
 import Output.StartResponse;
 
-public class Start {
+public class Start extends TTTAction {
     private StartRequest startRequest;
-    private DataAccessor ongoingGames;
     private StartResponse startResponse;
 
-    public Start(StartRequest startRequest) {
-        this.startRequest = startRequest;
-        ongoingGames = OngoingGames.getInstance();
-        System.out.println("Total ongoing games: " + ongoingGames.getTotalOngoingGames());
+    public Start() {
+
     }
 
     public void run() {
         TicTacToe ttt = ongoingGames.getGameForChannel(startRequest.getChannel());
         if (ttt != null) {
-            startResponse = new StartResponse(new GameInProgressException(TTTExceptions.GAME_IN_PROGRESS));
+            startResponse = new StartResponse(new GameInProgressException(TTTExceptionMessage.GAME_IN_PROGRESS));
             return;
         }
 
@@ -33,7 +30,13 @@ public class Start {
         startResponse = new StartResponse(ttt.getNextPlayer(), ttt.getPlayers(), ttt.toString());
     }
 
-    public StartResponse getStartResponse() {
+    @Override
+    public void setRequest(Request request) {
+        startRequest = (StartRequest) request;
+    }
+
+    @Override
+    public Response getResponse() {
         return startResponse;
     }
 }
