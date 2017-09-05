@@ -3,6 +3,7 @@ package Controller;
 import Actions.TTTAction;
 import Interfaces.Action;
 import Model.RichMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The main controller for the slash command.
@@ -22,10 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TicTacToeController {
 
-    @Value("${slashCommandToken}")
-    private String slackToken;
+    private Set<String> slackTokenSet;
 
-    @RequestMapping(value = "/rottt",
+    @RequestMapping(value = "/ttt",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public RichMessage onReceiveSlashCommand(@RequestParam("token") String token,
@@ -38,7 +42,7 @@ public class TicTacToeController {
                                              @RequestParam("command") String command,
                                              @RequestParam("text") String text,
                                              @RequestParam("response_url") String responseUrl) {
-        if (!token.equals(slackToken)) {
+        if (!slackTokenSet.contains(token)) {
             return new RichMessage("Sorry! You're not lucky enough to use our slack command.");
         }
 
@@ -55,10 +59,14 @@ public class TicTacToeController {
             response = e.getMessage();
         }
 
-        /** build response */
         RichMessage richMessage = new RichMessage(response);
         richMessage.setResponseType("in_channel");
         return richMessage.encodedMessage();
+    }
+
+    @Autowired
+    public void setTokenSet(@Value("${slashCommandToken}") final String stringOfTokens) {
+        slackTokenSet = new HashSet<>(Arrays.asList(stringOfTokens.split(",")));
     }
 
     public static void main(String[] args) {
