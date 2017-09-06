@@ -1,6 +1,7 @@
 package Actions;
 
 import Exceptions.GameInProgressException;
+import Exceptions.InvalidMoveException;
 import Exceptions.TTTExceptionMessage;
 import Input.StartRequest;
 import Interfaces.Request;
@@ -29,7 +30,15 @@ public class Start extends TTTAction {
         Player[] players = new Player[]{startRequest.getP1(), startRequest.getP2()};
         ttt = new TicTacToe(players);
         ongoingGames.setGameForChannel(ttt, startRequest.getChannel());
-        startResponse = new StartResponse(ttt.getNextPlayer(), ttt.getPlayers(), ttt.toString());
+        String description = null;
+        if (ttt.getNextPlayer().getId().equals(Player.BOT_ID)) {
+            try {
+                description = ttt.playMove(null);
+            } catch (InvalidMoveException e) {
+                //do nothing.
+            }
+        }
+        startResponse = new StartResponse(ttt.getNextPlayer(), ttt.getPlayers(), ttt.toString(), description);
     }
 
     @Override

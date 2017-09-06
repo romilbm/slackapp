@@ -41,7 +41,7 @@ public class MoveResponse implements Response {
                 positionDescriptions.get(0));
         if (positionDescriptions.size() > 1) {
             sb.append("\n");
-            sb.append("Dumb Bot" + " put a " + Symbol.ZERO + " in the " +
+            sb.append(Player.BOT_NAME + " put a " + Symbol.ZERO + " in the " +
                     positionDescriptions.get(1));
         }
         sb.append("\n");

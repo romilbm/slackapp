@@ -21,7 +21,7 @@ public class StartTest extends TTTTest {
 
         TicTacToe game = ongoingTestGames.getGameForChannel(new Channel(channelId, channelName));
         StartResponse response = new StartResponse(game.getNextPlayer(), game.getPlayers(),
-                game.toString());
+                game.toString(), null);
 
         RichMessage expectedMessage = new RichMessage(response.toString());
         expectedMessage.setResponseType("in_channel");
