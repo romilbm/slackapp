@@ -53,7 +53,7 @@ public class TicTacToeController {
                 action.run();
                 response = action.getResponse().toString();
             } else {
-                response = "Invalid option. Try /rottt help to get a list of all options.";
+                response = "Invalid option. Try `/ttt help` to get a list of all options.";
             }
         } catch (IllegalArgumentException e) {
             response = e.getMessage();
