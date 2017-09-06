@@ -4,6 +4,7 @@ import Enums.Symbol;
 import Interfaces.Request;
 import Model.Channel;
 import Model.Player;
+import Move.AIMove;
 import Move.HumanMove;
 
 /**
@@ -49,10 +50,16 @@ public class StartRequest implements Request{
      * @throws IllegalArgumentException
      */
     public void validateRequestAndExtract() throws IllegalArgumentException {
-        if (commandText.split(" ").length != 2) {
+        p1 = new Player(userName, userId, new HumanMove(), Symbol.X);
+        channel = new Channel(channelId, channelName);
+
+        if (commandText.equals("start")) {
+            p2 = new Player(Player.BOT_NAME, Player.BOT_ID, new AIMove(), Symbol.ZERO);
+            return;
+        } else if (commandText.split(" ").length != 2) {
             throw new IllegalArgumentException(CORRECT_FORMAT);
         }
-        p1 = new Player(userName, userId, new HumanMove(), Symbol.X);
+
         try {
             String[] secondPlayerInfo = extractUser(commandText);
             p2 = new Player(secondPlayerInfo[0], secondPlayerInfo[1], new HumanMove(), Symbol.ZERO);
@@ -63,7 +70,6 @@ public class StartRequest implements Request{
         if (p1.getId().equals(p2.getId())) {
             throw new IllegalArgumentException("You cannot play against yourself. " + CORRECT_FORMAT);
         }
-        channel = new Channel(channelId, channelName);
     }
 
     /**

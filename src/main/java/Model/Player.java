@@ -5,6 +5,8 @@ import Exceptions.InvalidMoveException;
 import Interfaces.MoveMethod;
 
 public class Player {
+    public static String BOT_NAME = "DUMB BOT";
+    public static String BOT_ID = "TTTBOT";
     private String name;
     private String id;
     private MoveMethod moveStrategy;

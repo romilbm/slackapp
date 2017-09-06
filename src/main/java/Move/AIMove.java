@@ -5,7 +5,7 @@ import Exceptions.InvalidMoveException;
 import Helpers.TicTacToeHelper;
 import Interfaces.MoveMethod;
 
-class AIMove implements MoveMethod {
+public class AIMove implements MoveMethod {
     @Override
     public String move(int[][] board, Symbol symbolToPut, Integer position) throws InvalidMoveException {
         int posn = move(board, symbolToPut);

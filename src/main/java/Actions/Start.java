@@ -13,10 +13,6 @@ public class Start extends TTTAction {
     private StartRequest startRequest;
     private StartResponse startResponse;
 
-    public Start() {
-
-    }
-
     /**
      * {@inheritDoc}
      * If a game is in progress in the channel, a new game cannot be started.

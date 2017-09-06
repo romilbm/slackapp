@@ -12,10 +12,6 @@ public class Show extends TTTAction {
     private ShowRequest showRequest;
     private ShowResponse showResponse;
 
-    public Show() {
-
-    }
-
     /**
      * {@inheritDoc}
      *

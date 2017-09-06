@@ -14,9 +14,6 @@ public class Quit extends TTTAction {
     private QuitRequest quitRequest;
     private QuitResponse quitResponse;
 
-    public Quit() {
-
-    }
     /**
      * {@inheritDoc}
      *

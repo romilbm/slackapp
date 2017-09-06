@@ -9,16 +9,16 @@ import Helpers.TicTacToeHelper;
 import Input.MoveRequest;
 import Interfaces.Request;
 import Interfaces.Response;
+import Model.Player;
 import Model.TicTacToe;
 import Output.MoveResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Move extends TTTAction {
     private MoveRequest moveRequest;
     private MoveResponse moveResponse;
-
-    public Move() {
-
-    }
 
     /**
      * {@inheritDoc}
@@ -53,20 +53,26 @@ public class Move extends TTTAction {
             return;
         }
 
-        EndConfig endConfig;
-        try {
-            endConfig = ttt.playMove(moveRequest.getMove());
-        } catch (InvalidMoveException e) {
-            moveResponse = new MoveResponse(e);
-            return;
-        }
+        String nextPlayerId = moveRequest.getPlayerId();
+        List<String> moveDescriptions = new ArrayList<>();
+        EndConfig endConfig = ttt.getEndConfig();
+        do {
+            try {
+                String description = ttt.playMove(moveRequest.getMove());
+                moveDescriptions.add(description);
+            } catch (InvalidMoveException e) {
+                moveResponse = new MoveResponse(e);
+                return;
+            }
+            nextPlayerId = ttt.getNextPlayer().getId();
+        } while (nextPlayerId.equals(Player.BOT_ID) && endConfig.equals(EndConfig.NONE));
 
         if (!endConfig.equals(EndConfig.NONE)) {
             ongoingGames.endGameInChannel(moveRequest.getChannel());
         }
         moveResponse = new MoveResponse(ttt.toString(), ttt.getResult(), endConfig,
                 ttt.getPlayer(moveRequest.getPlayerId()), ttt.getNextPlayer(),
-                TicTacToeHelper.getPosDescription(moveRequest.getMove()));
+                moveDescriptions);
     }
 
     /**

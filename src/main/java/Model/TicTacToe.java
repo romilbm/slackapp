@@ -39,7 +39,7 @@ public class TicTacToe {
      * Calculates if the current config is a win, draw or none. It set the value in an Enum {@link EndConfig}
      * @return The current value of the {@link EndConfig}.
      */
-    private EndConfig calculateEndConfig() {
+    private void calculateEndConfig() {
         endConfig = EndConfig.WIN;
         // rows
         for (int i = 0; i < 3; i++) {
@@ -47,7 +47,7 @@ public class TicTacToe {
                     (board[i][0] == board[i][2]))
 
             {
-                return endConfig;
+                return;
             }
         }
         // columns
@@ -56,30 +56,30 @@ public class TicTacToe {
                     (board[0][i] == board[2][i]))
 
             {
-                return endConfig;
+                return;
             }
         }
         // diags
         if ((board[0][0] != 0) && (board[0][0] == board[1][1]) &&
                 (board[0][0] == board[2][2])) {
-            return endConfig;
+            return;
         }
 
         if ((board[2][0] != 0) && (board[2][0] == board[1][1]) &&
                 (board[2][0] == board[0][2]))
 
         {
-            return endConfig;
+            return;
         }
 
         // draw
         endConfig = EndConfig.DRAW;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (board[i][j] == 0)
                     endConfig = EndConfig.NONE;
             }
-        return endConfig;
+        }
 
     }
 
@@ -151,40 +151,21 @@ public class TicTacToe {
      * Takes the next player and plays the current move for them.
      * If it results in a conclusion of the game, then it computes the {@link TTTResult} as well.
      * @param position the position on the board to put their symbol on.
-     * @return The current {@link EndConfig}
+     * @return The String description of the move played.
      * @throws InvalidMoveException if the position value is less than 1
      * or more than 9 or the position is already occupied.
      *
      */
-    public EndConfig playMove(int position) throws InvalidMoveException {
-        nextPlayer.move(board, position);
-        EndConfig endConfig = calculateEndConfig();
+    public String playMove(Integer position) throws InvalidMoveException {
+        String description = nextPlayer.move(board, position);
+        calculateEndConfig();
         if (!endConfig.equals(EndConfig.NONE)) {
             result = new TTTResult(players, endConfig, nextPlayer);
         } else {
             playerIndex++;
             nextPlayer = players[playerIndex % 2];
         }
-
-//        if (nextPlayer)
-        return endConfig;
-    }
-
-    private EndConfig playAIMove() throws InvalidMoveException {
-        try {
-            nextPlayer.move(board, null);
-        } catch (InvalidMoveException e) {
-            throw new InvalidMoveException("The AI played in invalid move! Log a ticket to the developers!");
-        }
-
-        EndConfig endConfig = calculateEndConfig();
-        if (!endConfig.equals(EndConfig.NONE)) {
-            result = new TTTResult(players, endConfig, nextPlayer);
-        } else {
-            playerIndex++;
-            nextPlayer = players[playerIndex % 2];
-        }
-        return endConfig;
+        return description;
     }
 
     /**
@@ -241,5 +222,22 @@ public class TicTacToe {
         if (players[0].getId().equals(playerId)) return players[0];
         if (players[1].getId().equals(playerId)) return players[1];
         return null;
+    }
+
+    public EndConfig getEndConfig() {
+        if (endConfig == null) {
+            calculateEndConfig();
+        }
+        return endConfig;
+    }
+
+    public void setNextPlayerFirstPlayer() {
+        playerIndex = 0;
+        this.nextPlayer = players[0];
+    }
+
+    public void setNextPlayerSecondPlayer() {
+        playerIndex = 1;
+        this.nextPlayer = players[1];
     }
 }
