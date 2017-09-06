@@ -1,4 +1,4 @@
-package integration;
+package integration.Actions;
 
 import Exceptions.InvalidMoveException;
 import Exceptions.TTTExceptionMessage;
@@ -7,6 +7,7 @@ import Model.Channel;
 import Model.RichMessage;
 import Model.TicTacToe;
 import Output.MoveResponse;
+import integration.TTTTest;
 import org.junit.Test;
 
 import java.util.Arrays;

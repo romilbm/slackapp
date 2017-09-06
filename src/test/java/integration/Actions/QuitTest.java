@@ -1,4 +1,4 @@
-package integration;
+package integration.Actions;
 
 import Exceptions.NoGameInProgressException;
 import Exceptions.TTTExceptionMessage;
@@ -6,6 +6,7 @@ import Model.Channel;
 import Model.RichMessage;
 import Model.TicTacToe;
 import Output.QuitResponse;
+import integration.TTTTest;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

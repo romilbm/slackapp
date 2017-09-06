@@ -1,9 +1,10 @@
-package integration;
+package integration.Actions;
 
 import Model.Channel;
 import Model.RichMessage;
 import Model.TicTacToe;
 import Output.StartResponse;
+import integration.TTTTest;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

@@ -53,9 +53,9 @@ public class Move extends TTTAction {
             return;
         }
 
-        String nextPlayerId = moveRequest.getPlayerId();
+        String nextPlayerId;
+        EndConfig endConfig;
         List<String> moveDescriptions = new ArrayList<>();
-        EndConfig endConfig = ttt.getEndConfig();
         do {
             try {
                 String description = ttt.playMove(moveRequest.getMove());
@@ -65,6 +65,7 @@ public class Move extends TTTAction {
                 return;
             }
             nextPlayerId = ttt.getNextPlayer().getId();
+            endConfig = ttt.getEndConfig();
         } while (nextPlayerId.equals(Player.BOT_ID) && endConfig.equals(EndConfig.NONE));
 
         if (!endConfig.equals(EndConfig.NONE)) {
