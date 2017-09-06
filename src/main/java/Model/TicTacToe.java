@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class TicTacToe {
     
-    private static final int HSPACE = 20;
+    private static final int HSPACE = 8;
     private int[][] board;
     private int playerIndex;
     private Player[] players;
