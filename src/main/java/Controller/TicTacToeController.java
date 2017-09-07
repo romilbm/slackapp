@@ -47,6 +47,10 @@ public class TicTacToeController {
             return new RichMessage(ControllerMessages.INVALID_AUTH);
         }
 
+        if (!isPublicChannel(channelId)) {
+            return new RichMessage(ControllerMessages.INVALID_CHANNEL);
+        }
+
         String response;
         try {
             Action action = TTTAction.getAction(text, userId, userName, channelId, channelName);
@@ -63,6 +67,11 @@ public class TicTacToeController {
         RichMessage richMessage = new RichMessage(response);
         richMessage.setResponseType(RichMessage.RESPONSE_TYPE_IN_CHANNEL);
         return richMessage.encodedMessage();
+    }
+
+    private boolean isPublicChannel(String channelId) {
+        if (channelId.charAt(0) == 'C') return true;
+        return false;
     }
 
     @Autowired

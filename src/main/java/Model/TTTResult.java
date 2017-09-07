@@ -1,6 +1,7 @@
 package Model;
 
 import Enums.EndConfig;
+import ResponseStrings.ResponseMessages;
 
 /**
  * It is set when the game concludes either in win or Draw.
@@ -19,7 +20,8 @@ public class TTTResult {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Players = " + participants[0] + " and " + participants[1]  + "\n");
+        sb.append(String.format(ResponseMessages.VERSUS_FORMAT, participants[0].getName(),
+                participants[0].getSymbol(), participants[1].getName(), participants[1].getSymbol()));
         sb.append("Result = " + w + "\n");
         if (!w.equals(EndConfig.DRAW)) {
             sb.append("Winner = " + winner);
