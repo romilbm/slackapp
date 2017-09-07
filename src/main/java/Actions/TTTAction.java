@@ -1,11 +1,7 @@
 package Actions;
 
 import DataAccess.OngoingGames;
-import Input.HelpRequest;
-import Input.MoveRequest;
-import Input.QuitRequest;
-import Input.ShowRequest;
-import Input.StartRequest;
+import Input.*;
 import Interfaces.Action;
 import Interfaces.DataAccessor;
 import Interfaces.Request;

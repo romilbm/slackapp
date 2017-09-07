@@ -2,6 +2,7 @@ package Output;
 
 import Interfaces.Response;
 import Model.Player;
+import ResponseStrings.ResponseMessages;
 
 public class ShowResponse implements Response {
     private String gameState;
@@ -23,8 +24,9 @@ public class ShowResponse implements Response {
         if (exception != null)
             return exception.getMessage();
         return
-            gameState + "\n" +
-            "Players: @" + players[0] + " vs  @" + players[1] + "\n" +
-            "Next Turn: @" + nextPlayer.getName();
+                String.format(ResponseMessages.GAME_FORMAT, gameState)
+            +   String.format(ResponseMessages.VERSUS_FORMAT, players[0].getName(), players[0].getSymbol()
+                    , players[1].getName(), players[1].getSymbol())
+            +   String.format(ResponseMessages.NEXT_PLAYER_FORMAT, nextPlayer.getName());
     }
 }

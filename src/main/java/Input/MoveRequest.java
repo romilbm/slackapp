@@ -2,12 +2,13 @@ package Input;
 
 import Interfaces.Request;
 import Model.Channel;
+import ResponseStrings.RequestMessages;
 
 /**
  * The Request wrapper class for the Move Action.
  */
 public class MoveRequest implements Request {
-    private static String CORRECT_FORMAT = "Incorrect format the correct format is /rottt move <position>";
+
     private String userId;
     private String channelId;
     private String channelName;
@@ -45,12 +46,12 @@ public class MoveRequest implements Request {
      */
     public void validateRequestAndExtract() throws IllegalArgumentException {
         String[] p = commandText.split(" ");
-        if (p.length != 2) throw new IllegalArgumentException(CORRECT_FORMAT);
+        if (p.length != 2) throw new IllegalArgumentException(RequestMessages.MOVE_CORRECT_FORMAT);
 
         try {
             move = Integer.parseInt(p[1]);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("The position should be a number between 1-9.");
+            throw new IllegalArgumentException(RequestMessages.NUM_OOR_MOVE);
         }
         playerId = userId;
         channel = new Channel(channelId, channelName);

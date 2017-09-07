@@ -3,6 +3,7 @@ package Controller;
 import Actions.TTTAction;
 import Interfaces.Action;
 import Model.RichMessage;
+import ResponseStrings.ControllerMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -43,7 +44,7 @@ public class TicTacToeController {
                                              @RequestParam("text") String text,
                                              @RequestParam("response_url") String responseUrl) {
         if (!slackTokenSet.contains(token)) {
-            return new RichMessage("Sorry! You're not lucky enough to use our slack command.");
+            return new RichMessage(ControllerMessages.INVALID_AUTH);
         }
 
         String response;
@@ -53,14 +54,14 @@ public class TicTacToeController {
                 action.run();
                 response = action.getResponse().toString();
             } else {
-                response = "Invalid option. Try `/ttt help` to get a list of all options.";
+                response = ControllerMessages.INVALID_OPTION;
             }
         } catch (IllegalArgumentException e) {
             response = e.getMessage();
         }
 
         RichMessage richMessage = new RichMessage(response);
-        richMessage.setResponseType("in_channel");
+        richMessage.setResponseType(RichMessage.RESPONSE_TYPE_IN_CHANNEL);
         return richMessage.encodedMessage();
     }
 

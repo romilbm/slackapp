@@ -2,15 +2,16 @@ package Actions;
 
 import Exceptions.GameInProgressException;
 import Exceptions.InvalidMoveException;
-import Exceptions.TTTExceptionMessage;
 import Input.StartRequest;
 import Interfaces.Request;
 import Interfaces.Response;
 import Model.Player;
 import Model.TicTacToe;
 import Output.StartResponse;
+import ResponseStrings.TTTExceptionMessages;
 
 public class Start extends TTTAction {
+    public static final String OPTION_TEXT = "start";
     private StartRequest startRequest;
     private StartResponse startResponse;
 
@@ -23,7 +24,7 @@ public class Start extends TTTAction {
     public void run() {
         TicTacToe ttt = ongoingGames.getGameForChannel(startRequest.getChannel());
         if (ttt != null) {
-            startResponse = new StartResponse(new GameInProgressException(TTTExceptionMessage.GAME_IN_PROGRESS));
+            startResponse = new StartResponse(new GameInProgressException(TTTExceptionMessages.GAME_IN_PROGRESS));
             return;
         }
 

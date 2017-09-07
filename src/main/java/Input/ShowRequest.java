@@ -1,7 +1,9 @@
 package Input;
 
+import Actions.Show;
 import Interfaces.Request;
 import Model.Channel;
+import ResponseStrings.RequestMessages;
 
 /**
  * The Request wrapper class for the Move Action.
@@ -24,8 +26,8 @@ public class ShowRequest implements Request {
     }
 
     public void validateRequestAndExtract() throws IllegalArgumentException{
-        if (!commandText.equals("show")) {
-            throw new IllegalArgumentException(CORRECT_FORMAT);
+        if (!commandText.equals(Show.OPTION_TEXT)) {
+            throw new IllegalArgumentException(RequestMessages.SHOW_CORRECT_FORMAT);
         }
         channel = new Channel(channelId, channelName);
     }

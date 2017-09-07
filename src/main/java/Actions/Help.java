@@ -10,6 +10,7 @@ import Output.HelpResponse;
  * This action gives serves the help menu for the TTT game.
  */
 public class Help extends TTTAction {
+    public static final String OPTION_TEXT = "help";
     HelpRequest helpRequest;
     HelpResponse helpResponse;
 

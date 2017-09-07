@@ -5,6 +5,7 @@ import Enums.Symbol;
 import Interfaces.Response;
 import Model.Player;
 import Model.TTTResult;
+import ResponseStrings.ResponseMessages;
 
 import java.util.List;
 
@@ -37,24 +38,19 @@ public class MoveResponse implements Response {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append(currentPlayer.getName() + " put a " + currentPlayer.getSymbol() + " in the " +
-                positionDescriptions.get(0));
+        sb.append(String.format(ResponseMessages.PLAYER_MOVE_FORMAT, currentPlayer.getName(),
+                currentPlayer.getSymbol(), positionDescriptions.get(0)));
+
         if (positionDescriptions.size() > 1) {
-            sb.append("\n");
-            sb.append(Player.BOT_NAME + " put a " + Symbol.ZERO + " in the " +
-                    positionDescriptions.get(1));
+            sb.append(String.format(ResponseMessages.PLAYER_MOVE_FORMAT, Player.BOT_NAME,
+                    Symbol.ZERO, positionDescriptions.get(1)));
         }
-        sb.append("\n");
-        sb.append(gameState);
-        sb.append("\n");
+        sb.append(String.format(ResponseMessages.GAME_FORMAT, gameState));
 
         if (!endConfig.equals(EndConfig.NONE)) {
-            sb.append("Game Over");
-            sb.append("\n");
-            sb.append(result);
+            sb.append(String.format(ResponseMessages.GAME_OVER_FORMAT, result));
         } else {
-            sb.append("Next Player: " + nextPlayer.getName());
-            sb.append("\n");
+            sb.append(String.format(ResponseMessages.NEXT_PLAYER_FORMAT, nextPlayer.getName()));
         }
 
         return sb.toString();

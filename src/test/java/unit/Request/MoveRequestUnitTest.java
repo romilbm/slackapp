@@ -2,6 +2,7 @@ package unit.Request;
 
 import Input.MoveRequest;
 import Interfaces.Request;
+import ResponseStrings.RequestMessages;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -14,14 +15,12 @@ public class MoveRequestUnitTest {
         String userId = "userId";
         String channelId = "channelId";
         String channelName = "channelName";
-        String exceptionMessage1 = "Incorrect format the correct format is /rottt move <position>";
-        String exceptionMessage2 = "The position should be a number between 1-9.";
 
         Object[][] args = new Object[][] {
                 new Object[] {"move 5", userId, channelId, channelName, null},
-                new Object[] {"move 1 3", userId, channelId, channelName, exceptionMessage1},
-                new Object[] {"move", userId, channelId, channelName, exceptionMessage1},
-                new Object[] {"move abc", userId, channelId, channelName, exceptionMessage2},
+                new Object[] {"move 1 3", userId, channelId, channelName, RequestMessages.MOVE_CORRECT_FORMAT},
+                new Object[] {"move", userId, channelId, channelName, RequestMessages.MOVE_CORRECT_FORMAT},
+                new Object[] {"move abc", userId, channelId, channelName, RequestMessages.NUM_OOR_MOVE},
         };
         return args;
     }

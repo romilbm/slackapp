@@ -2,6 +2,7 @@ package unit.Request;
 
 import Input.StartRequest;
 import Interfaces.Request;
+import ResponseStrings.RequestMessages;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -15,22 +16,18 @@ public class StartRequestUnitTest {
         String userName = "userName";
         String channelId = "channelId";
         String channelName = "channelName";
-        String exceptionMessage1 = "The correct format is /rottt start <@otherPlayer>";
-        String exceptionMessage2 = "Enter the opponent in the correct format. " + exceptionMessage1;
-        String exceptionMessage3 = "You cannot play against yourself. " + exceptionMessage1;
 
         Object[][] args = new Object[][] {
                 new Object[] {"start", userId, userName, channelId, channelName, null},
                 new Object[] {"start <@U2222|player2>", userId, userName, channelId, channelName, null},
                 new Object[] {"start <@U1234|player2> <@U2345|player1>", userId, userName, channelId,
-                        channelName, exceptionMessage1},
+                        channelName, RequestMessages.START_CORRECT_FORMAT},
                 new Object[] {"start player2", userId, userName, channelId, channelName,
-                        exceptionMessage2},
+                        RequestMessages.INCORRECT_OPPONENT_FORMAT},
                 new Object[] {"start <@C1234|channel>", userId, userName, channelId, channelName,
-                        exceptionMessage2},
+                        RequestMessages.INCORRECT_OPPONENT_FORMAT},
                 new Object[] {"start <@" + userId + "|" + userName + ">", userId, userName, channelId,
-                        channelName,
-                        exceptionMessage3},
+                        channelName, RequestMessages.OPPONENT_SELF_NOT_ALLOWED},
         };
         return args;
     }

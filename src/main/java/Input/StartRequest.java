@@ -1,17 +1,19 @@
 package Input;
 
+import Actions.Start;
 import Enums.Symbol;
 import Interfaces.Request;
 import Model.Channel;
 import Model.Player;
 import Move.AIMove;
 import Move.HumanMove;
+import ResponseStrings.RequestMessages;
 
 /**
  * The Request wrapper class for the Move Action.
  */
 public class StartRequest implements Request{
-    private static String CORRECT_FORMAT = "The correct format is /rottt start <@otherPlayer>";
+    private static final Character USER_ID_IDENTIFIER = 'U';
     private Player p1;
     private Player p2;
     private Channel channel;
@@ -53,22 +55,22 @@ public class StartRequest implements Request{
         p1 = new Player(userName, userId, new HumanMove(), Symbol.X);
         channel = new Channel(channelId, channelName);
 
-        if (commandText.equals("start")) {
+        if (commandText.equals(Start.OPTION_TEXT)) {
             p2 = new Player(Player.BOT_NAME, Player.BOT_ID, new AIMove(), Symbol.ZERO);
             return;
         } else if (commandText.split(" ").length != 2) {
-            throw new IllegalArgumentException(CORRECT_FORMAT);
+            throw new IllegalArgumentException(RequestMessages.START_CORRECT_FORMAT);
         }
 
         try {
             String[] secondPlayerInfo = extractUser(commandText);
             p2 = new Player(secondPlayerInfo[0], secondPlayerInfo[1], new HumanMove(), Symbol.ZERO);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Enter the opponent in the correct format. " + CORRECT_FORMAT);
+            throw new IllegalArgumentException(RequestMessages.INCORRECT_OPPONENT_FORMAT);
         }
 
         if (p1.getId().equals(p2.getId())) {
-            throw new IllegalArgumentException("You cannot play against yourself. " + CORRECT_FORMAT);
+            throw new IllegalArgumentException(RequestMessages.OPPONENT_SELF_NOT_ALLOWED);
         }
     }
 
@@ -88,7 +90,7 @@ public class StartRequest implements Request{
 
         String id = userInfo[0].substring(1);
         //verify it is indeed user id and not some other entity.
-        if (id.charAt(0) != 'U') {
+        if (id.charAt(0) != USER_ID_IDENTIFIER) {
             throw new IllegalArgumentException();
         }
         String name = userInfo[1];

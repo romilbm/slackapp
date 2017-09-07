@@ -1,12 +1,14 @@
 package Input;
 
+import Actions.Help;
 import Interfaces.Request;
+
+import static ResponseStrings.RequestMessages.HELP_CORRECT_FORMAT;
 
 /**
  * The Request wrapper class for the Help Action.
  */
 public class HelpRequest implements Request {
-    private static String CORRECT_FORMAT = "Incorrect format the correct format is /rottt help";
     private String commandText;
 
     public HelpRequest(String commandText) {
@@ -15,8 +17,8 @@ public class HelpRequest implements Request {
 
     @Override
     public void validateRequestAndExtract() throws IllegalArgumentException {
-        if (!commandText.equals("help")) {
-            throw new IllegalArgumentException(CORRECT_FORMAT);
+        if (!commandText.equals(Help.OPTION_TEXT)) {
+            throw new IllegalArgumentException(HELP_CORRECT_FORMAT);
         }
     }
 }

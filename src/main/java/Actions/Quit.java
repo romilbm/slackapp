@@ -2,15 +2,16 @@ package Actions;
 
 import Exceptions.IncorrectPlayerException;
 import Exceptions.NoGameInProgressException;
-import Exceptions.TTTExceptionMessage;
 import Input.QuitRequest;
 import Interfaces.Request;
 import Interfaces.Response;
 import Model.TTTResult;
 import Model.TicTacToe;
 import Output.QuitResponse;
+import ResponseStrings.TTTExceptionMessages;
 
 public class Quit extends TTTAction {
+    public static final String OPTION_TEXT = "quit";
     private QuitRequest quitRequest;
     private QuitResponse quitResponse;
 
@@ -24,12 +25,12 @@ public class Quit extends TTTAction {
     public void run() {
         TicTacToe ttt = ongoingGames.getGameForChannel(quitRequest.getChannel());
         if (ttt == null) {
-            quitResponse = new QuitResponse(new NoGameInProgressException(TTTExceptionMessage.NO_GAME_IN_PROGRESS));
+            quitResponse = new QuitResponse(new NoGameInProgressException(TTTExceptionMessages.NO_GAME_IN_PROGRESS));
             return;
         }
 
         if (!ttt.isValidPlayer(quitRequest.getPlayerId())) {
-            quitResponse = new QuitResponse(new IncorrectPlayerException(TTTExceptionMessage.INCORRECT_PLAYER_PLAY));
+            quitResponse = new QuitResponse(new IncorrectPlayerException(TTTExceptionMessages.INCORRECT_PLAYER_PLAY));
             return;
         }
 

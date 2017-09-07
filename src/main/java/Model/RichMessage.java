@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RichMessage {
+    public static final String RESPONSE_TYPE_IN_CHANNEL = "in_channel";
     private String username;
     @JsonProperty("icon_emoji")
     private String iconEmoji;

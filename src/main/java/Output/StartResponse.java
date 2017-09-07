@@ -3,6 +3,7 @@ package Output;
 import Enums.Symbol;
 import Interfaces.Response;
 import Model.Player;
+import ResponseStrings.ResponseMessages;
 
 public class StartResponse implements Response {
     private Player nextPlayer;
@@ -28,21 +29,16 @@ public class StartResponse implements Response {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Tic Tac Toe game started.\n");
-        sb.append(participants[0]);
-        sb.append(" v/s ");
-        sb.append(participants[1]);
-        sb.append("\n");
+        sb.append(ResponseMessages.OPENING_MESSAGE);
+        sb.append(String.format(ResponseMessages.VERSUS_FORMAT, participants[0].getName(),
+                participants[0].getSymbol(), participants[1].getName(), participants[1].getSymbol()));
         if (description != null) {
-            sb.append(Player.BOT_NAME + " put a " + Symbol.ZERO + " in the " + description);
-            sb.append("\n");
+            sb.append(String.format(ResponseMessages.PLAYER_MOVE_FORMAT, Player.BOT_NAME, Symbol.ZERO,
+                    description));
         }
-        sb.append("Next Turn: @" + nextPlayer.getName());
-        sb.append("\n");
-        sb.append("Please make your move selection by entering "
-                + "a number 1-9 corresponding to the movement "
-                + "key on the right.\n");
-        sb.append(gameState);
+        sb.append(String.format(ResponseMessages.NEXT_PLAYER_FORMAT, nextPlayer.getName()));
+        sb.append(ResponseMessages.INSTRUCTIONS);
+        sb.append(String.format(ResponseMessages.GAME_FORMAT, gameState));
 
         return sb.toString();
     }

@@ -2,6 +2,7 @@ package Output;
 
 import Interfaces.Response;
 import Model.TTTResult;
+import ResponseStrings.ResponseMessages;
 
 public class QuitResponse implements Response {
     private String gameState;
@@ -19,6 +20,6 @@ public class QuitResponse implements Response {
 
     public String toString() {
         if (exception != null) return exception.getMessage();
-        return gameState + "\n" + result + "\n";
+        return String.format(ResponseMessages.GAME_FORMAT, gameState);
     }
 }

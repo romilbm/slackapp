@@ -1,14 +1,15 @@
 package Actions;
 
 import Exceptions.NoGameInProgressException;
-import Exceptions.TTTExceptionMessage;
 import Input.ShowRequest;
 import Interfaces.Request;
 import Interfaces.Response;
 import Model.TicTacToe;
 import Output.ShowResponse;
+import ResponseStrings.TTTExceptionMessages;
 
 public class Show extends TTTAction {
+    public static final String OPTION_TEXT = "show";
     private ShowRequest showRequest;
     private ShowResponse showResponse;
 
@@ -20,7 +21,7 @@ public class Show extends TTTAction {
     public void run() {
         TicTacToe ttt = ongoingGames.getGameForChannel(showRequest.getChannel());
         if (ttt == null) {
-            showResponse = new ShowResponse(new NoGameInProgressException(TTTExceptionMessage.NO_GAME_IN_PROGRESS));
+            showResponse = new ShowResponse(new NoGameInProgressException(TTTExceptionMessages.NO_GAME_IN_PROGRESS));
             return;
         }
         showResponse = new ShowResponse(ttt.toString(), ttt.getPlayers(), ttt.getNextPlayer());

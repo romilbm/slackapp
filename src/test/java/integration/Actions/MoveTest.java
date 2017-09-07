@@ -1,12 +1,12 @@
 package integration.Actions;
 
 import Exceptions.InvalidMoveException;
-import Exceptions.TTTExceptionMessage;
 import Helpers.TicTacToeHelper;
 import Model.Channel;
 import Model.RichMessage;
 import Model.TicTacToe;
 import Output.MoveResponse;
+import ResponseStrings.TTTExceptionMessages;
 import integration.TTTTest;
 import org.junit.Test;
 
@@ -60,7 +60,7 @@ public class MoveTest extends TTTTest {
                 channelName, userId,
                 userName, command, text, responseUrl);
 
-        MoveResponse moveResponse = new MoveResponse(new InvalidMoveException(TTTExceptionMessage.INVALID_MOVE));
+        MoveResponse moveResponse = new MoveResponse(new InvalidMoveException(TTTExceptionMessages.INVALID_MOVE));
 
         RichMessage expectedMessage = new RichMessage(moveResponse.toString());
         expectedMessage.encodedMessage();

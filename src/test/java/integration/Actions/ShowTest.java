@@ -1,11 +1,11 @@
 package integration.Actions;
 
 import Exceptions.NoGameInProgressException;
-import Exceptions.TTTExceptionMessage;
 import Model.Channel;
 import Model.RichMessage;
 import Model.TicTacToe;
 import Output.ShowResponse;
+import ResponseStrings.TTTExceptionMessages;
 import integration.TTTTest;
 import org.junit.Test;
 
@@ -48,7 +48,7 @@ public class ShowTest extends TTTTest {
                 channelName, userId,
                 userName, command, text, responseUrl);
 
-        ShowResponse showResponse= new ShowResponse(new NoGameInProgressException(TTTExceptionMessage.NO_GAME_IN_PROGRESS));
+        ShowResponse showResponse= new ShowResponse(new NoGameInProgressException(TTTExceptionMessages.NO_GAME_IN_PROGRESS));
 
         RichMessage expectedMessage = new RichMessage(showResponse.toString());
         expectedMessage.encodedMessage();

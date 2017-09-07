@@ -4,6 +4,7 @@ import Model.Channel;
 import Model.RichMessage;
 import Model.TicTacToe;
 import Output.StartResponse;
+import ResponseStrings.RequestMessages;
 import integration.TTTTest;
 import org.junit.Test;
 
@@ -43,8 +44,7 @@ public class StartTest extends TTTTest {
         TicTacToe game = ongoingTestGames.getGameForChannel(new Channel(channelId, channelName));
         assertNull(game);
 
-        RichMessage message = new RichMessage("Enter the opponent in the correct format. The correct " +
-                "format is /rottt start <@otherPlayer>");
+        RichMessage message = new RichMessage(RequestMessages.INCORRECT_OPPONENT_FORMAT);
         message.encodedMessage();
 
         assertEquals(message.getText(), actualMessage.getText());

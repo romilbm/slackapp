@@ -4,19 +4,19 @@ import Enums.EndConfig;
 import Exceptions.IncorrectPlayerException;
 import Exceptions.InvalidMoveException;
 import Exceptions.NoGameInProgressException;
-import Exceptions.TTTExceptionMessage;
-import Helpers.TicTacToeHelper;
 import Input.MoveRequest;
 import Interfaces.Request;
 import Interfaces.Response;
 import Model.Player;
 import Model.TicTacToe;
 import Output.MoveResponse;
+import ResponseStrings.TTTExceptionMessages;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Move extends TTTAction {
+    public static final String OPTION_TEXT = "move";
     private MoveRequest moveRequest;
     private MoveResponse moveResponse;
 
@@ -39,17 +39,17 @@ public class Move extends TTTAction {
         TicTacToe ttt = ongoingGames.getGameForChannel(moveRequest.getChannel());
 
         if (ttt == null) {
-            moveResponse = new MoveResponse(new NoGameInProgressException(TTTExceptionMessage.NO_GAME_IN_PROGRESS));
+            moveResponse = new MoveResponse(new NoGameInProgressException(TTTExceptionMessages.NO_GAME_IN_PROGRESS));
             return;
         }
 
         if (!ttt.isValidPlayer(moveRequest.getPlayerId())) {
-            moveResponse = new MoveResponse(new IncorrectPlayerException(TTTExceptionMessage.INCORRECT_PLAYER_PLAY));
+            moveResponse = new MoveResponse(new IncorrectPlayerException(TTTExceptionMessages.INCORRECT_PLAYER_PLAY));
             return;
         }
 
         if (!ttt.isNextPlayer(moveRequest.getPlayerId())) {
-            moveResponse = new MoveResponse(new IncorrectPlayerException(TTTExceptionMessage.INCORRECT_PLAYER_TURN));
+            moveResponse = new MoveResponse(new IncorrectPlayerException(TTTExceptionMessages.INCORRECT_PLAYER_TURN));
             return;
         }
 
