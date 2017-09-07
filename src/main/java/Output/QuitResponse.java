@@ -20,6 +20,9 @@ public class QuitResponse implements Response {
 
     public String toString() {
         if (exception != null) return exception.getMessage();
-        return String.format(ResponseMessages.GAME_FORMAT, gameState);
+        return
+                    String.format(ResponseMessages.QUIT_MESSAGE)
+                +   String.format(ResponseMessages.GAME_OVER_FORMAT, result)
+                +   String.format(ResponseMessages.GAME_FORMAT, gameState);
     }
 }

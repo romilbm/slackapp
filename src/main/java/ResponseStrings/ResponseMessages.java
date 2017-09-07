@@ -11,4 +11,5 @@ public class ResponseMessages {
     public static final String INSTRUCTIONS = "Please make your move selection by entering "
             + "a number 1-9 corresponding to the movement "
             + "key on the right.\n";
+    public static final String QUIT_MESSAGE = "You have quit the game.\n";
 }
